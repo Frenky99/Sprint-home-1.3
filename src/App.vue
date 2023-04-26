@@ -1,14 +1,23 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+<div id="app">
+  <vMainWrapper/> <!--  мы прописали наш файл, чтобы он у нас отображался -->
+</div>
 </template>
 
-<style lang="scss">
+<script>
+import vMainWrapper from './components/v-main-wrapper.vue'; // мы импортировали наш дочерний файл в родительский, указав его название в камел-кейс и прописав его путь
+export default {
+  name: 'app',
+  components: {
+    vMainWrapper //в папку мы записываем через тире(имя в кебаб-кейс), а в импорте с слитно с большой буквы(камел-кейс)
+  }
+};
+</script>
+
+
+<style lang="scss"> // lang позволяет использовать вложенность по типу &
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
