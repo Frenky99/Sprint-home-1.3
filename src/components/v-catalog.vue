@@ -1,12 +1,16 @@
 <template>
   <h2>I'm Catalog!</h2>
   <div class="v-catalog">
-    <vCatalogItem
-      v-for="product in products"
+    <div class="v-catalog_list">
+          <vCatalogItem
+      v-for="product in PRODUCTS"
       :key="product.article"
       :product_data="product"
-      @cardInfo = 'showArticleFormChild'
+      @basketInfo="addToBasket"
     />
+    </div>
+
+    <!--@cardInfo="showArticleFormChild" было ранее так записано, но т.к. мы сейчас переделываем под корзину, то меняем название-->
     <!--v-for это наш цикл, который будет пробегаться по каждому объекту из нашего массива products -->
     <!--key это наш уникальный ключ обращения, он не должен ни в коем случае быть одинаковым,
     мы прописали нашу переменную product из массива products к нашему внутреннему item - article -->
@@ -17,94 +21,43 @@
 
 <script>
 import vCatalogItem from "./v-catalog-item.vue";
+import { mapActions, mapGetters } from "vuex"; // mapActions так мы получаем данные из нашего хранилища от store, mapGetters получаем данные нашего products
+
 export default {
   name: "v-catalog", // обязательное поле, вводим название нашего компонента
   components: { vCatalogItem }, // далее необязательные поля, здесь мы указываем наши дочерние компоненты - объект
   props: {}, // не персональные данные родителя, хранят массив ключей свойств, которым из вне можно передать значение - объект
   data() {
-    return {
-      products: [
-        // мы передали наши будущие карточки в нужный нам файл, в данном случае в каталог, для дальнейщего отображения
-        {
-          image: "1.png",
-          name: "Analyst",
-          price: 2100,
-          article: "T1",
-          available: true,
-          category: "it products",
-          quantity: 0,
-          about: "Hi i'm an Analyst! Nice to meet you!",
-        },
-        {
-          image: "2.png",
-          name: "Designer",
-          price: 3150,
-          article: "T2",
-          available: true,
-          category: "it products",
-          quantity: 0,
-          about: "Hey my friend! Nice to meet you!",
-        },
-        {
-          image: "3.png",
-          name: "Marketer",
-          price: 4200,
-          article: "T3",
-          available: false,
-          category: "it products",
-          quantity: 0,
-          about: "Hello! How have you been?",
-        },
-        {
-          image: "4.png",
-          name: "Developer",
-          price: 5300,
-          article: "T4",
-          available: true,
-          category: "it products",
-          quantity: 0,
-          about: "Nice to meet you! What about Vue?",
-        },
-        {
-          image: "5.png",
-          name: "Business Accelerator",
-          price: 6500,
-          article: "T5",
-          available: false,
-          category: "it products",
-          quantity: 0,
-          about: "Hey! We'll solve any problems!",
-        },
-        {
-          image: "6.png",
-          name: "Engineer",
-          price: 8700,
-          article: "T6",
-          available: true,
-          category: "it products",
-          quantity: 0,
-          about: "Hi! I've many solutions!",
-        },
-      ],
-    };
+    return {}; // ранее мы прописали здесь наш массив с продуктами, сейчас удалили, так как в store мы закинули все через vuex
   },
-  computed: {}, // вычисляемые свойства
+  computed: { // вычисляемые свойства
+    ...mapGetters(["PRODUCTS"]), // здесь лежит наш геттер из store
+  },
   methods: { // отслеживание действий пользователя, модальные окна и т.д
-    showArticleFormChild(data) { // произвольное название, в скобках что нам нужно передать в данном случае это данные
-      console.log(data); // выводим, чтобы их увидеть
-    },
+    ...mapActions(["GET_PRODUCTS_FROM_API", 'ADD_TO_BASKET']), // сюда мы закидываем, то что первым записали в store в actions
+    addToBasket(data) {
+      this.ADD_TO_BASKET(data)
+    }
+    // showArticleFormChild(data) { // произвольное название, в скобках что нам нужно передать в данном случае это данные
+     // console.log(data); // выводим, чтобы их увидеть
+    //},
   },
   watch: {}, // следит за нашим компонентом и что-то отлавливает
-  mounted() {
-    // как только появится какой-то компонент, то у нас он отработает
+  mounted() { // как только появится какой-то компонент, то у нас он отработает // поработаем через this с нашим api
+    this.GET_PRODUCTS_FROM_API().then((response)=> { // поработаем через this с нашим api, then дополнительная проверка на получение данных
+    if(response.data) { // задаем условие - если response придёт, то выведем в консоль
+      console.log('Всё чики-рики');
+    }
+  })
   },
 };
 </script>
 
 <style>
-.v-catalog {
+.v-catalog, .v-catalog_list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center;
 }
 </style>
