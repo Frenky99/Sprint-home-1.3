@@ -15,7 +15,7 @@
       <p>Quantity</p>
       <span>{{ basket_item_data.quantity }}</span>
     </div>
-    <button class="v-basket-item_btn_basket_item" @click="deleteFromCard">
+    <button class="v-basket-item_btn_basket_item btn" @click="deleteFromCard">
       Delete
     </button>
   </div>
@@ -55,12 +55,12 @@ export default {
 .v-basket-item {
   flex-basis: 40%;
   padding: 20px;
-  margin: 20px;
+  margin: 30px 20px 0 20px;
   box-shadow: 0 0 8px 0 grey;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .v-basket-item_image {
@@ -70,8 +70,7 @@ export default {
 
 .v-basket-item_btn_basket_item {
   padding: 3px 20px;
-  border-radius: 10px;
-  border: 1px solid black;
+  border-radius: 7px;
   cursor: pointer;
 }
 
@@ -82,5 +81,4 @@ export default {
 .v-basket-item_data > div {
   margin-bottom: 10px;
 }
-
 </style>

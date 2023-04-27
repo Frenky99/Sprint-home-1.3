@@ -11,7 +11,7 @@
     <div class="v-catalog-item_name">{{ product_data.name }}</div>
     <div class="v-catalog-item_price">{{ product_data.price }}</div>
     <div class="v-catalog-item_about">{{ product_data.about }}</div>
-    <button class="v-catalog-item_btn_card-item" @click="addToBasket">click</button> <!-- мы привязали наш метод с помощью клика -->
+    <button class="v-catalog-item_btn_card-item btn" @click="addToBasket">click</button> <!-- мы привязали наш метод с помощью клика -->
   </div>
 </template>
 
@@ -51,11 +51,11 @@ export default {
 
 <style lang='scss'>
 .v-catalog-item {
-  flex-basis: 25%;
+  flex-basis: 33%;
   box-shadow: 0 0 8px 0 grey;
   padding: 20px;
   margin: 20px;
-  border-radius: 10px;
+  border-radius: 7px;
   &__img {
     max-width: 100px;
   }
@@ -67,9 +67,11 @@ export default {
 
 .v-catalog-item_btn_card-item {
     padding: 3px 20px;
-    border-radius: 10px;
-    border: 1px solid black;
+    border-radius: 7px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: auto;
     }
 
 .v-catalog-item_btn_card-item:hover {

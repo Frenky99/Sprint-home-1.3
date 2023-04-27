@@ -16,6 +16,8 @@ export default {
 
 
 <style lang="scss"> // lang позволяет использовать вложенность по типу &
+@import '~materialize-css/dist/css/materialize.min.css'; // мф подключили данные фреймворка от materialize, ранее в терминале мы прописали: npm install materialize-css@next
+
 #app {
   font-family: 'Comic Sans MS', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,16 +26,4 @@ export default {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
